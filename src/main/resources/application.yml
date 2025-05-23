@@ -6,29 +6,31 @@ spring:
     multipart:
       max-file-size: 50MB
       max-request-size: 50MB
-  application:
-    name: file-preview-service
 
-# JodConverter??
+# Docker环境下的JodConverter配置
 jodconverter:
   local:
     enabled: true
-    office-home: "C:/Program Files/LibreOffice"
-    port-numbers: 2002
+    office-home: "/usr/lib/libreoffice"
+    port-numbers: 2002,2003,2004
     process-timeout: 120000
     process-restart-interval: 150000
     max-tasks-per-process: 10
+    task-execution-timeout: 120000
+    task-queue-timeout: 30000
 
-# ?????
+# 预览图配置
 preview:
-  output-dir: "./previews"
+  output-dir: "/app/previews"
   image-format: "png"
   image-width: 800
   image-height: 600
   dpi: 150
 
-# ????
+# 日志配置
 logging:
   level:
-    org.jodconverter: DEBUG
-    com.example: DEBUG
+    org.jodconverter: INFO
+    com.example: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
